@@ -10,5 +10,10 @@ module.exports = {
      */
     async findAll() {
         return await UserModel.find({});
-    }
+    },
+
+    async createUser(userData) {
+        const newUser = UserModel(userData);
+        return await newUser.save();
+    },
 };

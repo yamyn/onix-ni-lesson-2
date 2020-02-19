@@ -9,7 +9,7 @@ function onError(error, port) {
         throw error;
     }
 
-    const bind = (typeof port === 'string') ? `Pipe ${port}` : `Port ${port}`;
+    const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
     switch (error.code) {
         case 'EACCES':
@@ -29,7 +29,8 @@ function onError(error, port) {
  */
 function onListening() {
     const addr = this.address();
-    const bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
+    const bind =
+        typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
 
     console.log(`Listening on ${bind}`);
 }
@@ -40,12 +41,12 @@ function onListening() {
  * @param {http.Server} Server
  */
 function bind(Server) {
-    Server.on('error', (error) => this.onError(error, server.get('port')));
+    Server.on('error', error => this.onError(error, server.get('port')));
     Server.on('listening', this.onListening.bind(Server));
 }
 
 module.exports = {
     onError,
     onListening,
-    bind
-}
+    bind,
+};

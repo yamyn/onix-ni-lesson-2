@@ -17,6 +17,19 @@ async function findAll(req, res, next) {
     }
 }
 
-module.exports = {
-    findAll
+async function createUser(req, res, next) {
+    try {
+        const userData = req.body;
+        console.log('UserData:', userData);
+        const newUser = await UserService.createUser(userData);
+
+        res.status(201).json(newUser);
+    } catch (error) {
+        next(error);
+    }
 }
+
+module.exports = {
+    findAll,
+    createUser,
+};
