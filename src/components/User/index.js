@@ -17,10 +17,17 @@ async function findAll(req, res, next) {
     }
 }
 
-async function findById(req, res, next) {
+/**
+ * @function
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ * @returns {Promise < void >}
+ */
+async function findOne(req, res, next) {
     try {
-        const userId = req.params.userId;
-        const user = await UserService.findById(userId);
+        const userData = req.body;
+        const user = await UserService.findOne(userData);
 
         res.status(200).json(user);
     } catch (error) {
@@ -28,10 +35,16 @@ async function findById(req, res, next) {
     }
 }
 
+/**
+ * @function
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ * @returns {Promise < void >}
+ */
 async function createUser(req, res, next) {
     try {
         const userData = req.body;
-        console.log('UserData:', userData);
         const newUser = await UserService.createUser(userData);
 
         if (newUser.message) res.status(400).json(newUser.message);
@@ -42,18 +55,34 @@ async function createUser(req, res, next) {
     }
 }
 
+/**
+ * @function
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ * @returns {Promise < void >}
+ */
 async function updateUser(req, res, next) {
     try {
         const userId = req.params.userId;
         const updateData = req.body;
         const updateUser = await UserService.updateUser(userId, updateData);
+
         if (updateUser.message) res.status(400).json(updateUser.message);
+
         res.status(200).json(updateUser);
     } catch (error) {
         next(error);
     }
 }
 
+/**
+ * @function
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ * @returns {Promise < void >}
+ */
 async function deleteUser(req, res, next) {
     try {
         const userData = req.body;
@@ -67,7 +96,7 @@ async function deleteUser(req, res, next) {
 
 module.exports = {
     findAll,
-    findById,
+    findOne,
     createUser,
     updateUser,
     deleteUser,

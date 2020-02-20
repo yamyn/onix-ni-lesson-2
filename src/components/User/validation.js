@@ -15,6 +15,12 @@ const validSchema = Joi.object({
         tlds: { allow: ['com', 'net'] },
     }),
 });
+
+/**
+ * @function
+ * @param {ValidatedObject} obj
+ * @returns {validateFunction()}
+ */
 function joiValidation(obj) {
     return validSchema.validate(obj);
 }
