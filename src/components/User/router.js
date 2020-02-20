@@ -18,6 +18,12 @@ const router = Router();
  */
 router.get('/', UserComponent.findAll);
 
-router.post('/', UserComponent.createUser);
+router.get('/:userId', UserComponent.findById);
+
+router.post('/create', UserComponent.createUser);
+
+router.put('/update/:userId', UserComponent.updateUser);
+
+router.delete('/delete', UserComponent.deleteUser);
 
 module.exports = router;
